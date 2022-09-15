@@ -24,8 +24,13 @@ services:
       context: .docker/php
       dockerfile: dockerfile
     container_name: backend
+    extra_hosts:
+      - site.naalemv:192.168.222.24
+    environment:
+      - VIRTUAL_HOST=site.naalemv
     volumes:
       - ./:/var/www
       - .docker/php/php.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./hosts/app.conf:/etc/apache2/sites-enabled/app.conf:ro
     networks:
       app-network:
